@@ -40,7 +40,9 @@ class _CartScreenState extends State<CartScreen> {
             ),
             backgroundColor: primaryColor,
           ),
-          body: state is GetCartLoaded
+          body: state is GetCartLoaded ||
+                  LayoutCubit.get(context).cartItem.isEmpty ||
+                  LayoutCubit.get(context).cartItem[0]['data']['carts'].isEmpty
               ? Container(
                   width: double.infinity,
                   height: double.infinity,

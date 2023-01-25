@@ -476,7 +476,19 @@ class LayoutCubit extends Cubit<LayoutState> {
         "is_default": 1,
       },
     ).then((value) {
+      emit(AddAdressDone());
       getAllAdressUser();
+    });
+  }
+
+  void deleteItem({required int id}) {
+    emit(DeleteItemLoaded());
+    DioServer.deleteData(
+      url: "https://store.advera.ps/api/carts/$id",
+      token: token,
+    ).then((value) {
+      getListCart();
+      emit(DeleteItemDone());
     });
   }
 }

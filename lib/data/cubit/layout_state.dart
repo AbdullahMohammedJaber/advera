@@ -69,7 +69,13 @@ class getMassegeSucces extends LayoutState {}
 
 class GetMessageLoaded extends LayoutState {}
 
+class DeleteItemLoaded extends LayoutState {}
+
+class DeleteItemDone extends LayoutState {}
+
 class Loadeingtrue extends LayoutState {}
+
+class AddAdressDone extends LayoutState {}
 
 class AddAdressLoaded extends LayoutState {}
 

@@ -437,7 +437,7 @@ class addCart extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.5,
           height: 47,
           decoration: BoxDecoration(
-            color: pageColor,
+            color: secondColor,
             borderRadius: BorderRadius.circular(14),
           ),
           child: Center(
