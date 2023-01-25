@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:advera/controller/color.dart';
 import 'package:advera/data/cubit/layout_cubit.dart';
 import 'package:advera/server/server.dart';
@@ -32,7 +30,7 @@ class _AdressOrderState extends State<AdressOrder> {
   var noumberFlowerController = TextEditingController();
   var buildingNoumberController = TextEditingController();
   var flat_numberController = TextEditingController();
-
+  var coponController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LayoutCubit, LayoutState>(
@@ -114,121 +112,226 @@ class _AdressOrderState extends State<AdressOrder> {
                     : Column(
                         children: [
                           Expanded(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: DropdownButtonFormField(
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder()),
-                                    borderRadius: BorderRadius.circular(12),
-                                    icon: Icon(Icons.arrow_downward_rounded),
-                                    iconSize: 15,
-                                    elevation: 10,
-                                    isExpanded: true,
-                                    dropdownColor: primaryColor,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: DropdownButtonFormField(
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder()),
+                                      borderRadius: BorderRadius.circular(12),
+                                      icon: Icon(Icons.arrow_downward_rounded),
+                                      iconSize: 15,
+                                      elevation: 10,
+                                      isExpanded: true,
+                                      dropdownColor: primaryColor,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      hint: Text("اختر عنوان التوصيل"),
+                                      items: LayoutCubit.get(context)
+                                          .adressUser
+                                          .map((e) {
+                                        //+ '\t' + '\t' + ', building_number :' + e[0]['userAddresses']['building_number'] + '\t' + '\t' + ', floor_number :' + e[0]['userAddresses']['floor_number']
+                                        return DropdownMenuItem(
+                                          value: e,
+                                          child: Text(
+                                            "${e['street_name']}",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              idStrett = e['id'];
+                                            });
+                                          },
+                                        );
+                                      }).toList(),
+                                      onChanged: (dynamic value) {
+                                        setState(() {
+                                          idStrett = value!['id'];
+                                        });
+                                        print(idStrett);
+                                      },
                                     ),
-                                    hint: Text("اختر عنوان التوصيل"),
-                                    items: LayoutCubit.get(context)
-                                        .adressUser
-                                        .map((e) {
-                                      //+ '\t' + '\t' + ', building_number :' + e[0]['userAddresses']['building_number'] + '\t' + '\t' + ', floor_number :' + e[0]['userAddresses']['floor_number']
-                                      return DropdownMenuItem(
-                                        value: e,
-                                        child: Text(
-                                          "${e['street_name']}",
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "أدخل كوبون الخصم",
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            fontFamily: "font",
                                           ),
                                         ),
-                                        onTap: () {
-                                          setState(() {
-                                            idStrett = e['id'];
-                                          });
-                                        },
-                                      );
-                                    }).toList(),
-                                    onChanged: (dynamic value) {
-                                      setState(() {
-                                        idStrett = value!['id'];
-                                      });
-                                      print(idStrett);
-                                    },
-                                  ),
-                                ),
-                                Spacer(),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      addAdress = true;
-                                      canselAdress = false;
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 45,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: secondColor,
+                                      ],
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                        "اضافة عنوان جديد",
-                                        style: TextStyle(
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextFormField(
+                                      controller: coponController,
+                                      textAlign: TextAlign.end,
+                                      style: const TextStyle(
                                           fontFamily: "font",
-                                          color: Colors.white,
-                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontSize: 12),
+                                      decoration: InputDecoration(
+                                        hintText: "ادخل الكوبون الخاص بك",
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      if (coponController.text.isEmpty) {
+                                      } else {
+                                        LayoutCubit.get(context).validateCopon(
+                                            copon: coponController.text);
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
+                                      decoration: BoxDecoration(
+                                        color: primaryColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Center(
+                                        child: state is ValedateCoponLoaded
+                                            ? CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )
+                                            : Text(
+                                                "تفعيل الكود",
+                                                style: TextStyle(
+                                                    fontFamily: "font",
+                                                    color: Colors.white),
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        state is GetCartLoaded
+                                            ? Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        backgroundColor:
+                                                            Colors.grey,
+                                                        color: primaryColor),
+                                              )
+                                            : Text(
+                                                "\$ ${LayoutCubit.totalPrise}",
+                                                style: TextStyle(
+                                                  fontFamily: "font",
+                                                ),
+                                              ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          ": السعر النهائي للطلبية",
+                                          style: TextStyle(
+                                            fontFamily: "font",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
+                                  ),
+                                  //   Spacer(),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        addAdress = true;
+                                        canselAdress = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 45,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: secondColor,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "اضافة عنوان جديد",
+                                          style: TextStyle(
+                                            fontFamily: "font",
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    if (idStrett == 0) {
-                                    } else {
-                                      LayoutCubit.get(context).addOrder();
-                                    }
-                                  },
-                                  child: Container(
-                                    height: 45,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: swichColor,
-                                    ),
-                                    child: Center(
-                                      child: state is AddOrderLoaded
-                                          ? CircularProgressIndicator(
-                                              color: Colors.white,
-                                            )
-                                          : Text(
-                                              "تنفيذ الطلبية",
-                                              style: TextStyle(
-                                                fontFamily: "font",
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      if (idStrett == 0) {
+                                      } else {
+                                        LayoutCubit.get(context).addOrder();
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 45,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: swichColor,
+                                      ),
+                                      child: Center(
+                                        child: state is AddOrderLoaded
+                                            ? CircularProgressIndicator(
                                                 color: Colors.white,
-                                                fontSize: 14,
+                                              )
+                                            : Text(
+                                                "تنفيذ الطلبية",
+                                                style: TextStyle(
+                                                  fontFamily: "font",
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                ),
                                               ),
-                                            ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                              ],
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -237,6 +340,36 @@ class _AdressOrderState extends State<AdressOrder> {
         );
       },
       listener: (context, state) {
+        if (state is ValedateCoponDone) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green,
+              content: Text(
+                state.msg,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "font",
+                ),
+                textAlign: TextAlign.end,
+              ),
+            ),
+          );
+        }
+        if (state is ValedateCoponFaild) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                state.msg,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "font",
+                ),
+                textAlign: TextAlign.end,
+              ),
+            ),
+          );
+        }
         if (state is AddOrderDone) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -366,15 +499,12 @@ class _AdressOrderState extends State<AdressOrder> {
               ),
               InkWell(
                 onTap: () {
-                  if (nameStrettController.text.isEmpty ||
-                      buildingNoumberController.text.isEmpty ||
-                      noumberFlowerController.text.isEmpty ||
-                      flat_numberController.text.isEmpty) {
+                  if (nameStrettController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         backgroundColor: Colors.red,
                         content: Text(
-                          "الرجاء ادخال كافة البيانات",
+                          "الرجاء ادخال اسم الشارع",
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: "font",

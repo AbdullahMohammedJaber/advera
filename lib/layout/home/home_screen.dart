@@ -7,6 +7,7 @@ import 'package:advera/helper/shared_refrence.dart';
 import 'package:advera/layout/category/all_category.dart';
 import 'package:advera/layout/category/product_in_category.dart';
 import 'package:advera/layout/category/sub_category.dart';
+import 'package:advera/layout/notifecation/notifecation.dart';
 import 'package:advera/layout/product/all_product.dart';
 import 'package:advera/layout/product/details_product.dart';
 import 'package:advera/layout/search/search_page.dart';
@@ -39,6 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     LayoutCubit.get(context).getProductHomeScreen();
+    LayoutCubit.get(context).getAllNotifecation();
+    LayoutCubit.get(context).getSliderHomeScreen();
+
+    LayoutCubit.get(context).getCategory();
     LayoutCubit.limit = 5;
     super.initState();
   }
@@ -68,11 +73,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-                icon: const Image(
-                  image: AssetImage("images/search.png"),
-                  height: 40,
-                  width: 25,
-                ),
+                icon: Icon(Icons.search),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const Notifecation(),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.notification_important_rounded),
               ),
             ],
           ),

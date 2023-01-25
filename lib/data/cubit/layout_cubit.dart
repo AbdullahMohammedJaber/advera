@@ -274,16 +274,18 @@ class LayoutCubit extends Cubit<LayoutState> {
     emit(EbtySearch());
   }
 
+  static dynamic totalPrise = 0;
   List<Map<String, dynamic>> cartItem = [];
   void getListCart() {
     emit(GetCartLoaded());
     cartItem = [];
-    ("Favv--------------------------------------");
-    (token);
+    totalPrise = 0;
+
     DioServer.getData(url: '/carts', token: token).then((value) {
-      ("The Cart List is :");
       cartItem.add(value.data);
-      (value.data);
+
+      totalPrise = cartItem[0]['data']['carts']['totalPrice'];
+      print(cartItem[0]['data']['carts']['total_after_discount']);
       emit(GetCartDone());
     });
   }
@@ -489,6 +491,41 @@ class LayoutCubit extends Cubit<LayoutState> {
     ).then((value) {
       getListCart();
       emit(DeleteItemDone());
+    });
+  }
+
+  List<Map<String, dynamic>> notifecationList = [];
+  void getAllNotifecation() {
+    emit(GetNotifecationLoaded());
+    notifecationList = [];
+    DioServer.postData(
+      url: '/users/userNotifications',
+      token: token,
+    ).then((value) {
+      notifecationList.add(value.data);
+      emit(GetNotifecationDone());
+      print(notifecationList);
+    });
+  }
+
+  void validateCopon({required dynamic copon}) {
+    emit(ValedateCoponLoaded());
+    DioServer.getData(
+      url: '/coupon/valid',
+      query: {
+        'coupon': copon,
+      },
+      token: token,
+    ).then((value) {
+      if (value.statusCode == 200) {
+        print(value.data);
+        print(value.data['msg']);
+        emit(ValedateCoponDone(value.data['msg']));
+        getListCart();
+      } else {
+        print(value.data);
+        emit(ValedateCoponFaild(value.data['msg']));
+      }
     });
   }
 }

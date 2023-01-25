@@ -73,6 +73,24 @@ class DeleteItemLoaded extends LayoutState {}
 
 class DeleteItemDone extends LayoutState {}
 
+class ValedateCoponLoaded extends LayoutState {}
+
+class ValedateCoponDone extends LayoutState {
+  final String msg;
+
+  ValedateCoponDone(this.msg);
+}
+
+class ValedateCoponFaild extends LayoutState {
+  final String msg;
+
+  ValedateCoponFaild(this.msg);
+}
+
+class GetNotifecationLoaded extends LayoutState {}
+
+class GetNotifecationDone extends LayoutState {}
+
 class Loadeingtrue extends LayoutState {}
 
 class AddAdressDone extends LayoutState {}

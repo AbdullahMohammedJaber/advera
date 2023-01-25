@@ -578,29 +578,33 @@ Column BuildProuduct(BuildContext context, int index) {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 10.0),
-            width: 47.0,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
-              ),
-              gradient: LinearGradient(
-                colors: [Color(0xFFF49763), Color(0xFFD23A3A)],
-                stops: [0, 1],
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
-              ),
-            ),
-            child: Center(
-              child: Text(
-                "% ${LayoutCubit.get(context).productCategory[0]['data']['records']['posts'][index]['discount_price']}",
-                style: FontStyles.montserratBold17()
-                    .copyWith(fontSize: 11.0, color: Colors.white),
-              ),
-            ),
-          ),
+          LayoutCubit.get(context).productCategory[0]['data']['records']
+                      ['posts'][index]['discount_price'] ==
+                  0
+              ? SizedBox()
+              : Container(
+                  margin: const EdgeInsets.only(top: 10.0),
+                  width: 47.0,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                    gradient: LinearGradient(
+                      colors: [Color(0xFFF49763), Color(0xFFD23A3A)],
+                      stops: [0, 1],
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "% ${LayoutCubit.get(context).productCategory[0]['data']['records']['posts'][index]['discount_price']}",
+                      style: FontStyles.montserratBold17()
+                          .copyWith(fontSize: 11.0, color: Colors.white),
+                    ),
+                  ),
+                ),
           Positioned(
             bottom: -15.0,
             right: 10.0,
@@ -640,7 +644,7 @@ Column BuildProuduct(BuildContext context, int index) {
                         id: LayoutCubit.get(context).productCategory[0]['data']
                             ['records']['posts'][index]['id']);
                   } else if (LayoutCubit.get(context).productCategory[0]['data']
-                          ['records']['posts']['is_liked'] ==
+                          ['records']['posts']['auth']['is_liked'] ==
                       1) {
                     LayoutCubit.get(context).deleteFav(
                         id: LayoutCubit.get(context).productCategory[0]['data']
@@ -656,19 +660,105 @@ Column BuildProuduct(BuildContext context, int index) {
                   borderRadius: BorderRadius.circular(36.0),
                 ),
                 child: Icon(
-                  Icons.favorite,
+                  LayoutCubit.get(context).productCategory[0]['data']['records']
+                              ['posts'][index]['auth']['is_liked'] ==
+                          1
+                      ? Icons.favorite
+                      : Icons.favorite_border,
                   color: LayoutCubit.get(context).productCategory[0]['data']
                               ['records']['posts'][index]['auth']['is_liked'] ==
                           1
                       ? Colors.red
-                      : Colors.grey,
+                      : Colors.black,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -15.0,
+            child: InkWell(
+              onTap: () {
+                if (LayoutCubit.token == 'null') {
+                  AwesomeDialog(
+                    context: context,
+                    animType: AnimType.scale,
+                    dialogType: DialogType.warning,
+                    body: const Center(
+                      child: Text(
+                        "لم يتم تسجيل الدخول ",
+                        style: TextStyle(
+                          fontFamily: 'font',
+                          fontSize: 20,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    title: 'This is Ignored',
+                    btnOkOnPress: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const LoginScreen()),
+                          (route) => false);
+                    },
+                    btnOkColor: swichColor,
+                    btnOkText: "تسجيل الدخول",
+                  ).show();
+                } else {
+                  if (LayoutCubit.get(context).productCategory[0]['data']
+                              ['records']['posts'][index]['auth']
+                          ['is_added_to_cart'] ==
+                      1) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(seconds: 1),
+                        backgroundColor: Colors.green,
+                        content: Text(
+                          "تم اضافته للسلة مسبقا",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "font",
+                          ),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => ProductDetails(
+                                product:
+                                    LayoutCubit.get(context).productCategory[0]
+                                        ['data']['records']['posts'][index])));
+                  }
+                }
+              },
+              child: Container(
+                height: 36.0,
+                width: 36.0,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(36.0),
+                ),
+                child: Icon(
+                  LayoutCubit.get(context).productCategory[0]['data']['records']
+                              ['posts'][index]['auth']['is_added_to_cart'] ==
+                          1
+                      ? Icons.shopping_cart
+                      : Icons.shopping_cart_outlined,
+                  color: LayoutCubit.get(context).productCategory[0]['data']
+                                  ['records']['posts'][index]['auth']
+                              ['is_added_to_cart'] ==
+                          1
+                      ? Colors.green
+                      : Colors.black,
                 ),
               ),
             ),
           ),
         ],
       ),
-      _buildRatings(context),
       SizedBox(
         height: 10,
       ),
@@ -697,14 +787,18 @@ Column BuildProuduct(BuildContext context, int index) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(
-              "\$ ${LayoutCubit.get(context).productCategory[0]['data']['records']['posts'][index]['price']}",
-              style: TextStyle(
-                color: pageColor,
-                fontSize: 16,
-                decoration: TextDecoration.lineThrough,
-              ),
-            ),
+            LayoutCubit.get(context).productCategory[0]['data']['records']
+                        ['posts'][index]['discount_price'] ==
+                    0
+                ? SizedBox()
+                : Text(
+                    "\$ ${LayoutCubit.get(context).productCategory[0]['data']['records']['posts'][index]['price']}",
+                    style: TextStyle(
+                      color: pageColor,
+                      fontSize: 16,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
             const SizedBox(
               width: 30,
             ),
