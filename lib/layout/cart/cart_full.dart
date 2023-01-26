@@ -67,45 +67,53 @@ class _CartFullState extends State<CartFull> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  if (LayoutCubit.get(context).cartItem[0]
-                                          ['data']['carts']['totalPrice'] ==
-                                      0) {
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => AdressOrder()));
-                                    // LayoutCubit.get(context).addOrder();
-                                  }
-                                },
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  height: 47,
-                                  decoration: BoxDecoration(
-                                    color: secondColor,
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                  child: Center(
-                                    child: state is AddOrderLoaded
-                                        ? Center(
-                                            child: CircularProgressIndicator(
-                                                color: Colors.white),
-                                          )
-                                        : Text(
-                                            "تنفيذ الطلبية",
-                                            style: TextStyle(
-                                              fontFamily: "font",
-                                              fontSize: 18,
-                                              color: Colors.white,
-                                            ),
-                                          ),
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    if (LayoutCubit.get(context).cartItem[0]
+                                            ['data']['carts']['totalPrice'] ==
+                                        0) {
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => AdressOrder()));
+                                      // LayoutCubit.get(context).addOrder();
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 47,
+                                    decoration: BoxDecoration(
+                                      color: secondColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Center(
+                                        child: state is AddOrderLoaded
+                                            ? Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        color: Colors.white),
+                                              )
+                                            : Text(
+                                                "تنفيذ الطلبية",
+                                                style: TextStyle(
+                                                  fontFamily: "font",
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                      ),
+                                    ),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                width: 5,
                               ),
                               Container(
                                 height: 47,
@@ -116,7 +124,7 @@ class _CartFullState extends State<CartFull> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      "\$${LayoutCubit.get(context).cartItem[0]['data']['carts']['totalPrice']}",
+                                      "₪ ${LayoutCubit.get(context).cartItem[0]['data']['carts']['total_after_discount']}",
                                       style: const TextStyle(
                                         fontFamily: "font",
                                         fontSize: 16,
@@ -124,7 +132,7 @@ class _CartFullState extends State<CartFull> {
                                       ),
                                     ),
                                     const Text(
-                                      " : اجمالي السعر",
+                                      " : السعر",
                                       style: TextStyle(
                                         fontFamily: "font",
                                         fontSize: 16,
@@ -211,7 +219,7 @@ class ItemCart extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "\$${LayoutCubit.get(context).cartItem[0]['data']['carts']['products'][index]['price_after_discount']}",
+                      "₪ ${LayoutCubit.get(context).cartItem[0]['data']['carts']['products'][index]['price_after_discount']}",
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       textAlign: TextAlign.end,

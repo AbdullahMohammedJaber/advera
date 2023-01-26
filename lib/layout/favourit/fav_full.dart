@@ -231,7 +231,7 @@ class _FavFullState extends State<FavFull> {
                       0
                   ? SizedBox()
                   : Text(
-                      "\$ ${LayoutCubit.get(context).favItem[0]['data']['products'][index]['price']}",
+                      "₪ ${LayoutCubit.get(context).favItem[0]['data']['products'][index]['price']}",
                       style: TextStyle(
                         color: pageColor,
                         fontSize: 16,
@@ -242,7 +242,7 @@ class _FavFullState extends State<FavFull> {
                 width: 30,
               ),
               Text(
-                "\$ ${LayoutCubit.get(context).favItem[0]['data']['products'][index]['price_after_discount']}",
+                "₪ ${LayoutCubit.get(context).favItem[0]['data']['products'][index]['price_after_discount']}",
                 style: TextStyle(
                     color: green, fontSize: 16, fontWeight: FontWeight.bold),
               ),

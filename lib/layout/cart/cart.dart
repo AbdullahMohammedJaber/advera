@@ -52,7 +52,8 @@ class _CartScreenState extends State<CartScreen> {
                 )
               : LayoutCubit.get(context).cartItem[0]['data']['carts'].isEmpty ||
                       LayoutCubit.get(context).cartItem[0]['data']['carts'] ==
-                          []
+                          [] ||
+                      LayoutCubit.get(context).cartItem.isEmpty
                   ? const CartEmpty()
                   : const CartFull(),
         );

@@ -455,7 +455,7 @@ class _AllProductState extends State<AllProduct> {
                       0
                   ? SizedBox()
                   : Text(
-                      "\$ ${LayoutCubit.get(context).productHome[0]['data']['records']['posts'][index]['price']}",
+                      "₪ ${LayoutCubit.get(context).productHome[0]['data']['records']['posts'][index]['price']}",
                       style: TextStyle(
                         color: pageColor,
                         fontSize: 16,
@@ -466,7 +466,7 @@ class _AllProductState extends State<AllProduct> {
                 width: 30,
               ),
               Text(
-                "\$ ${LayoutCubit.get(context).productHome[0]['data']['records']['posts'][index]['price_after_discount']}",
+                "₪ ${LayoutCubit.get(context).productHome[0]['data']['records']['posts'][index]['price_after_discount']}",
                 style: TextStyle(
                     color: green, fontSize: 16, fontWeight: FontWeight.bold),
               ),

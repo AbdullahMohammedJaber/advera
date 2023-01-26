@@ -244,7 +244,7 @@ class _AdressOrderState extends State<AdressOrder> {
                                                         color: primaryColor),
                                               )
                                             : Text(
-                                                "\$ ${LayoutCubit.totalPrise}",
+                                                "\$ ${LayoutCubit.total}",
                                                 style: TextStyle(
                                                   fontFamily: "font",
                                                 ),

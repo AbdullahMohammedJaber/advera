@@ -820,7 +820,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 30,
               ),
               Text(
-                "\$ ${LayoutCubit.get(context).productHomeNotOffer[index]['price_after_discount']}",
+                "₪ ${LayoutCubit.get(context).productHomeNotOffer[index]['price_after_discount']}",
                 style: TextStyle(
                     color: green, fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -1079,7 +1079,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       0
                   ? SizedBox()
                   : Text(
-                      "\$ ${LayoutCubit.get(context).productHomeOffer[index]['price']}",
+                      "₪ ${LayoutCubit.get(context).productHomeOffer[index]['price']}",
                       style: TextStyle(
                         color: pageColor,
                         fontSize: 16,
@@ -1090,7 +1090,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 30,
               ),
               Text(
-                "\$ ${LayoutCubit.get(context).productHomeOffer[index]['price_after_discount']}",
+                "₪ ${LayoutCubit.get(context).productHomeOffer[index]['price_after_discount']}",
                 style: TextStyle(
                     color: green, fontSize: 16, fontWeight: FontWeight.bold),
               ),

@@ -274,20 +274,25 @@ class LayoutCubit extends Cubit<LayoutState> {
     emit(EbtySearch());
   }
 
-  static dynamic totalPrise = 0;
   List<Map<String, dynamic>> cartItem = [];
   void getListCart() {
     emit(GetCartLoaded());
     cartItem = [];
-    totalPrise = 0;
 
     DioServer.getData(url: '/carts', token: token).then((value) {
       cartItem.add(value.data);
 
-      totalPrise = cartItem[0]['data']['carts']['totalPrice'];
-      print(cartItem[0]['data']['carts']['total_after_discount']);
       emit(GetCartDone());
+      totalPriseCart();
+    }).catchError((onError) {
+      print(onError.toString());
     });
+  }
+
+  static dynamic total = 0;
+  void totalPriseCart() {
+    total = cartItem[0]['data']['carts']['total_after_discount'];
+    emit(ChangePriseDone());
   }
 
   late int indexCart;

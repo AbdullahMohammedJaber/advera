@@ -385,7 +385,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       0
                   ? SizedBox()
                   : Text(
-                      "\$ ${LayoutCubit.get(context).searchData[0]['data']['products'][index]['price']}",
+                      "₪ ${LayoutCubit.get(context).searchData[0]['data']['products'][index]['price']}",
                       style: TextStyle(
                         color: pageColor,
                         fontSize: 16,
@@ -396,7 +396,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 width: 30,
               ),
               Text(
-                "\$ ${LayoutCubit.get(context).searchData[0]['data']['products'][index]['price_after_discount']}",
+                "₪ ${LayoutCubit.get(context).searchData[0]['data']['products'][index]['price_after_discount']}",
                 style: TextStyle(
                     color: green, fontSize: 16, fontWeight: FontWeight.bold),
               ),

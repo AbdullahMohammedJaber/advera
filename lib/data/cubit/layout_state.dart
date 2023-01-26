@@ -81,6 +81,10 @@ class ValedateCoponDone extends LayoutState {
   ValedateCoponDone(this.msg);
 }
 
+class ChangePriseDone extends LayoutState {}
+
+class ChangePriseLoaded extends LayoutState {}
+
 class ValedateCoponFaild extends LayoutState {
   final String msg;
 
