@@ -21,6 +21,7 @@ part 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(LayoutInitial());
+
   static LayoutCubit get(context) => BlocProvider.of(context);
   var index = 0;
 
@@ -33,6 +34,7 @@ class LayoutCubit extends Cubit<LayoutState> {
     const FavScreen(),
     const ProfileScreen(),
   ];
+
   void changeBottom(x, context) {
     if (token == 'null') {
       if (x == 1) {
@@ -122,11 +124,12 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   // function get category .
   List<Map<dynamic, dynamic>> category = [];
-  Future getCategory()async {
+
+  Future getCategory() async {
     emit(GetCategoryLoaded());
     category = [];
 
-   await DioServer.getData(url: "/categories").then((value) {
+    await DioServer.getData(url: "/categories").then((value) {
       category.add(value.data);
 
       emit(GetCategoryDone());
@@ -141,14 +144,15 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<Map<String, dynamic>> productHomeOffer = [];
   static int limit = 10;
   static bool isLoading = false;
-  Future getProductHomeScreen() async{
+
+  Future getProductHomeScreen() async {
     emit(GetProductHomeLoaded());
     productHome = [];
     productHomeNotOffer = [];
     productHomeOffer = [];
     isLoading = true;
     emit(Loadeingtrue());
-  await  DioServer.getDataProduct(
+    await DioServer.getDataProduct(
       limit: limit,
       url: "/products",
       token: token,
@@ -173,10 +177,11 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> slidertHome = [];
-  Future getSliderHomeScreen() async{
+
+  Future getSliderHomeScreen() async {
     emit(GetSliderHomeLoaded());
     slidertHome = [];
-   await DioServer.getData(
+    await DioServer.getData(
       url: "/slider",
     ).then((value) {
       slidertHome.add(value.data);
@@ -188,6 +193,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> productCategory = [];
+
   void getProductCategoryScreen({required int id_category}) {
     emit(GetProductCategoryLoaded());
     productCategory = [];
@@ -207,6 +213,7 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   // void get list item favoraites
   List<Map<String, dynamic>> favItem = [];
+
   void getListFav() {
     emit(GetFavLoaded());
     favItem = [];
@@ -254,6 +261,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> searchData = [];
+
   void searchProduct({
     required String nameProduct,
   }) {
@@ -275,6 +283,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> cartItem = [];
+
   void getListCart() {
     emit(GetCartLoaded());
     cartItem = [];
@@ -290,12 +299,14 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   static dynamic total = 0;
+
   void totalPriseCart() {
     total = cartItem[0]['data']['carts']['total_after_discount'];
     emit(ChangePriseDone());
   }
 
   late int indexCart;
+
   void getIndexCart() async {
     indexCart = await CacheHelper.getData(key: 'indexCart') ?? 1;
   }
@@ -435,10 +446,11 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> subCategoryList = [];
-  void getSubCategory({required int categoryId}) {
+
+  Future getSubCategory({required int categoryId}) async {
     emit(GetSubCategoryLoaded());
     subCategoryList = [];
-    DioServer.getData(url: '/subCategories', query: {
+    await DioServer.getData(url: '/subCategories', query: {
       'category_id': categoryId,
     }).then((value) {
       subCategoryList.add(value.data);
@@ -448,6 +460,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> adressUser = [];
+
   void getAllAdressUser() {
     emit(GetAdressLoaded());
     adressUser = [];
@@ -500,10 +513,11 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> notifecationList = [];
-  Future getAllNotifecation()async {
+
+  Future getAllNotifecation() async {
     emit(GetNotifecationLoaded());
     notifecationList = [];
-   await DioServer.postData(
+    await DioServer.postData(
       url: '/users/userNotifications',
       token: token,
     ).then((value) {

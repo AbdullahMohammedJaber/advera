@@ -81,12 +81,14 @@ Widget BuildCategory(BuildContext context, int index) {
       print(LayoutCubit.get(context).category[0]['data']['categories'][index]
           ['id']);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (_) => SubCategory(
-                    category_id: LayoutCubit.get(context).category[0]['data']
-                        ['categories'][index]['id'],
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (_) => SubCategory(
+            category_id: LayoutCubit.get(context).category[0]['data']
+                ['categories'][index]['id'],
+          ),
+        ),
+      );
     },
     child: Container(
       decoration: BoxDecoration(

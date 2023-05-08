@@ -575,7 +575,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CachedNetworkImage(
                   imageUrl: LayoutCubit.get(context).productHomeNotOffer[index]
                       ['images'][0],
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   placeholder: (context, name) {
                     return ShimmerEffect(
                         borderRadius: 10.0,
@@ -845,7 +845,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CachedNetworkImage(
                   imageUrl: LayoutCubit.get(context).productHomeOffer[index]
                       ['images'][0],
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   placeholder: (context, name) {
                     return ShimmerEffect(
                         borderRadius: 10.0,
@@ -1064,53 +1064,41 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(
           height: 5,
         ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              LayoutCubit.get(context).productHomeOffer[index]
-                          ['discount_price'] ==
-                      0
-                  ? SizedBox()
-                  : Text(
-                      "₪ ${LayoutCubit.get(context).productHomeOffer[index]['price']}",
-                      style: TextStyle(
-                        color: pageColor,
-                        fontSize: 16,
-                        decoration: TextDecoration.lineThrough,
+        FittedBox(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                LayoutCubit.get(context).productHomeOffer[index]
+                            ['discount_price'] ==
+                        0
+                    ? SizedBox()
+                    : Text(
+                        "₪ ${LayoutCubit.get(context).productHomeOffer[index]['price']}",
+                        style: TextStyle(
+                          color: pageColor,
+                          fontSize: 16,
+                          decoration: TextDecoration.lineThrough,
+                        ),
                       ),
-                    ),
-              const SizedBox(
-                width: 30,
-              ),
-              Text(
-                "₪ ${LayoutCubit.get(context).productHomeOffer[index]['price_after_discount']}",
-                style: TextStyle(
-                    color: green, fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
+                const SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  "₪ ${LayoutCubit.get(context).productHomeOffer[index]['price_after_discount']}",
+                  style: TextStyle(
+                      color: green, fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildRatings(BuildContext context) {
-    return SizedBox(
-      height: 20,
-      width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-          itemCount: 1,
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Icon(
-              Icons.shopping_cart_outlined,
-            );
-          }),
-    );
-  }
+
 
   Widget makeSlider() {
     return CarouselSlider.builder(

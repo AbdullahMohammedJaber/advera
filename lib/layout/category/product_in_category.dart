@@ -104,7 +104,7 @@ class _ProductCategoryState extends State<ProductCategory> {
                 child: CachedNetworkImage(
                   imageUrl: LayoutCubit.get(context).productHome[0]['data']
                       ['records']['posts'][index]['images'][0],
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   placeholder: (context, name) {
                     return ShimmerEffect(
                         borderRadius: 10.0,
@@ -243,7 +243,7 @@ class _ProductCategoryState extends State<ProductCategory> {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               LayoutCubit.get(context).productHome[0]['data']['records']
                           ['posts'][index]['discount_price'] ==

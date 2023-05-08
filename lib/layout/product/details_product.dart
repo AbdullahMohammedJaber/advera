@@ -28,6 +28,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     keepPage: true,
   );
   int amount = 1;
+
   @override
   void initState() {
     LayoutCubit.get(context).getProductCategoryScreen(
@@ -64,10 +65,16 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               child: Container(
-                child: Image.network(
-                  widget.product['images'][index],
-                  // fit: BoxFit.cover,
-                  width: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    widget.product['images'][index],
+                    fit: BoxFit.cover,
+                    width: 100,
+                  ),
                 ),
               ),
             ));
@@ -104,8 +111,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           controller: controller,
                           count: images.length,
                           effect: const WormEffect(
-                            dotHeight: 10,
-                            dotWidth: 20,
+                            dotHeight: 4,
+                            dotWidth: 30,
                             type: WormType.thin,
                             // strokeWidth: 5,
                           ),
@@ -381,6 +388,7 @@ class addCart extends StatelessWidget {
       required this.p,
       required this.state})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -561,7 +569,7 @@ Column BuildProuduct(BuildContext context, int index) {
               child: CachedNetworkImage(
                 imageUrl: LayoutCubit.get(context).productCategory[0]['data']
                     ['records']['posts'][index]['images'][0],
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 placeholder: (context, name) {
                   return ShimmerEffect(
                       borderRadius: 10.0,
@@ -782,32 +790,41 @@ Column BuildProuduct(BuildContext context, int index) {
       const SizedBox(
         height: 5,
       ),
-      Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            LayoutCubit.get(context).productCategory[0]['data']['records']
-                        ['posts'][index]['discount_price'] ==
-                    0
-                ? SizedBox()
-                : Text(
-                    "₪ ${LayoutCubit.get(context).productCategory[0]['data']['records']['posts'][index]['price']}",
-                    style: TextStyle(
-                      color: pageColor,
-                      fontSize: 16,
-                      decoration: TextDecoration.lineThrough,
+      FittedBox(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment:LayoutCubit.get(context).productCategory[0]['data']['records']
+            ['posts'][index]['discount_price'] ==
+                0? MainAxisAlignment.start :MainAxisAlignment.spaceBetween ,
+            children: [
+              LayoutCubit.get(context).productCategory[0]['data']['records']
+                          ['posts'][index]['discount_price'] ==
+                      0
+                  ? SizedBox()
+                  : Text(
+                      "₪ ${LayoutCubit.get(context).productCategory[0]['data']['records']['posts'][index]['price']}",
+                      style: TextStyle(
+                        color: pageColor,
+                        fontSize: 16,
+                        decoration: TextDecoration.lineThrough,
+                      ),
                     ),
-                  ),
-            const SizedBox(
-              width: 30,
-            ),
-            Text(
-              "₪ ${LayoutCubit.get(context).productCategory[0]['data']['records']['posts'][index]['price_after_discount']}",
-              style: TextStyle(
-                  color: green, fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
+              const SizedBox(
+                width: 30,
+              ),
+              Text(
+                "₪ ${LayoutCubit.get(context).productCategory[0]['data']['records']['posts'][index]['price_after_discount']}",
+                style: TextStyle(
+                  color: green,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+
+                ),
+
+              ),
+            ],
+          ),
         ),
       ),
     ],

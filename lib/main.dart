@@ -26,7 +26,7 @@ void main() async {
   print("the token is : \n");
   // ignore: avoid_print
   print(LayoutCubit.token);
- // LocalNotificationService.initialize();
+  // LocalNotificationService.initialize();
 
   // await FirebaseMessaging.instance.getInitialMessage();
   // FirebaseMessaging.onMessage.listen((event) {
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-  //  stormNotifecationToken();
+    //  stormNotifecationToken();
   }
 
   // This widget is the root of your application.
@@ -60,14 +60,24 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => AdveraCubit()),
         BlocProvider(create: (context) => LayoutCubit()..getIndexCart()),
       ],
-      child: ScreenUtilInit(builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
+      child: ScreenUtilInit(
+        builder: (BuildContext context, Widget? child) {
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const SplashScreen());
-      }),
+            home: const SplashScreen(),
+            builder: (context, child) {
+              return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaleFactor: 1.0,
+                  ),
+                  child: child!);
+            },
+          );
+        },
+      ),
     );
   }
 }
