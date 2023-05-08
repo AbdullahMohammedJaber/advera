@@ -18,9 +18,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    LayoutCubit.get(context).getCategory();
     LayoutCubit.get(context).getProductHomeScreen();
+    LayoutCubit.get(context).getAllNotifecation();
     LayoutCubit.get(context).getSliderHomeScreen();
+
+    LayoutCubit.get(context).getCategory();
+    LayoutCubit.limit = 5;
+    LayoutCubit.get(context).getCategory();
+
     LayoutCubit.get(context).getIndexCart();
 
     Future.delayed(const Duration(seconds: 3)).then((value) {

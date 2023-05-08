@@ -148,7 +148,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                "\$${widget.product['price_after_discount']}",
+                                "₪ ${widget.product['price_after_discount']}",
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontFamily: "font",

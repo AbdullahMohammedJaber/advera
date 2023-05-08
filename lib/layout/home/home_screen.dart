@@ -39,12 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    LayoutCubit.get(context).getProductHomeScreen();
-    LayoutCubit.get(context).getAllNotifecation();
-    LayoutCubit.get(context).getSliderHomeScreen();
 
-    LayoutCubit.get(context).getCategory();
-    LayoutCubit.limit = 5;
     super.initState();
   }
 

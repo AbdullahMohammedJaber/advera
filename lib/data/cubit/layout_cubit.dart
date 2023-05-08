@@ -122,11 +122,11 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   // function get category .
   List<Map<dynamic, dynamic>> category = [];
-  void getCategory() {
+  Future getCategory()async {
     emit(GetCategoryLoaded());
     category = [];
 
-    DioServer.getData(url: "/categories").then((value) {
+   await DioServer.getData(url: "/categories").then((value) {
       category.add(value.data);
 
       emit(GetCategoryDone());
@@ -141,14 +141,14 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<Map<String, dynamic>> productHomeOffer = [];
   static int limit = 10;
   static bool isLoading = false;
-  void getProductHomeScreen() {
+  Future getProductHomeScreen() async{
     emit(GetProductHomeLoaded());
     productHome = [];
     productHomeNotOffer = [];
     productHomeOffer = [];
     isLoading = true;
     emit(Loadeingtrue());
-    DioServer.getDataProduct(
+  await  DioServer.getDataProduct(
       limit: limit,
       url: "/products",
       token: token,
@@ -173,10 +173,10 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> slidertHome = [];
-  void getSliderHomeScreen() {
+  Future getSliderHomeScreen() async{
     emit(GetSliderHomeLoaded());
     slidertHome = [];
-    DioServer.getData(
+   await DioServer.getData(
       url: "/slider",
     ).then((value) {
       slidertHome.add(value.data);
@@ -500,10 +500,10 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Map<String, dynamic>> notifecationList = [];
-  void getAllNotifecation() {
+  Future getAllNotifecation()async {
     emit(GetNotifecationLoaded());
     notifecationList = [];
-    DioServer.postData(
+   await DioServer.postData(
       url: '/users/userNotifications',
       token: token,
     ).then((value) {

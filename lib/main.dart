@@ -14,9 +14,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   await DioServer.init();
   await CacheHelper.init();
   AppSta.setSystemStyling();
@@ -26,12 +26,12 @@ void main() async {
   print("the token is : \n");
   // ignore: avoid_print
   print(LayoutCubit.token);
-  LocalNotificationService.initialize();
+ // LocalNotificationService.initialize();
 
-  await FirebaseMessaging.instance.getInitialMessage();
-  FirebaseMessaging.onMessage.listen((event) {
-    LocalNotificationService.display(event);
-  });
+  // await FirebaseMessaging.instance.getInitialMessage();
+  // FirebaseMessaging.onMessage.listen((event) {
+  //   LocalNotificationService.display(event);
+  // });
   runApp(MyApp());
 }
 
@@ -41,15 +41,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  stormNotifecationToken() async {
-    LayoutCubit.notefication =
-        await FirebaseMessaging.instance.getToken() as String;
-  }
+  // stormNotifecationToken() async {
+  //   LayoutCubit.notefication =
+  //       await FirebaseMessaging.instance.getToken() as String;
+  // }
 
   @override
   void initState() {
     super.initState();
-    stormNotifecationToken();
+  //  stormNotifecationToken();
   }
 
   // This widget is the root of your application.
