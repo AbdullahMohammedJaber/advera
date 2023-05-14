@@ -5,12 +5,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin
-  _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static void initialize() {
     final InitializationSettings initializationSettings =
-    InitializationSettings(
-        android: AndroidInitializationSettings("@mipmap/ic_launcher"));
+        InitializationSettings(
+            android: AndroidInitializationSettings("@mipmap/ic_launcher"));
     _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
@@ -22,16 +22,16 @@ class LocalNotificationService {
       int id = random.nextInt(1000);
       final NotificationDetails notificationDetails = NotificationDetails(
           android: AndroidNotificationDetails(
-            "mychanel",
-            "my chanel",
-            importance: Importance.max,
-            priority: Priority.high,
-          ));
+        "mychanel",
+        "my chanel",
+        importance: Importance.max,
+        priority: Priority.high,
+      ));
       print("my id is ${id.toString()}");
       await _flutterLocalNotificationsPlugin.show(
         id,
-        message.notification!.title,
-        message.notification!.title,
+        message.notification.title,
+        message.notification.title,
         notificationDetails,
       );
     } on Exception catch (e) {

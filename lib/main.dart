@@ -14,9 +14,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await DioServer.init();
   await CacheHelper.init();
   AppSta.setSystemStyling();
@@ -26,12 +26,12 @@ void main() async {
   print("the token is : \n");
   // ignore: avoid_print
   print(LayoutCubit.token);
-  // LocalNotificationService.initialize();
+  LocalNotificationService.initialize();
 
-  // await FirebaseMessaging.instance.getInitialMessage();
-  // FirebaseMessaging.onMessage.listen((event) {
-  //   LocalNotificationService.display(event);
-  // });
+  await FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging.onMessage.listen((event) {
+    LocalNotificationService.display(event);
+  });
   runApp(MyApp());
 }
 
@@ -41,15 +41,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // stormNotifecationToken() async {
-  //   LayoutCubit.notefication =
-  //       await FirebaseMessaging.instance.getToken() as String;
-  // }
+  stormNotifecationToken() async {
+    LayoutCubit.notefication =
+        await FirebaseMessaging.instance.getToken() as String;
+  }
 
   @override
   void initState() {
     super.initState();
-    //  stormNotifecationToken();
+    stormNotifecationToken();
   }
 
   // This widget is the root of your application.
@@ -61,19 +61,19 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => LayoutCubit()..getIndexCart()),
       ],
       child: ScreenUtilInit(
-        builder: (BuildContext context, Widget? child) {
+        builder: (BuildContext context, Widget child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const SplashScreen(),
+            home: SplashScreen(),
             builder: (context, child) {
               return MediaQuery(
                   data: MediaQuery.of(context).copyWith(
                     textScaleFactor: 1.0,
                   ),
-                  child: child!);
+                  child: child);
             },
           );
         },

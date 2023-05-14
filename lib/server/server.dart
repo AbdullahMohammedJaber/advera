@@ -1,22 +1,23 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class DioServer {
-  static late Dio dio;
+  static Dio dio;
 
   static init() async {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://store.advera.ps/api',
+        baseUrl: 'https://store.advera.ps/api/',
         receiveDataWhenStatusError: true,
       ),
     );
   }
 
   static Future<Response> postData({
-    required String url,
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? query,
-    String? token,
+    @required String url,
+    Map<String, dynamic> data,
+    Map<String, dynamic> query,
+    String token,
   }) async {
     dio.options.headers = {
       'lang': 'ar',
@@ -31,10 +32,10 @@ class DioServer {
   }
 
   static Future<Response> deleteData({
-    required String url,
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? query,
-    String? token,
+    @required String url,
+    Map<String, dynamic> data,
+    Map<String, dynamic> query,
+    String token,
   }) async {
     dio.options.headers = {
       'lang': 'ar',
@@ -49,9 +50,9 @@ class DioServer {
   }
 
   static Future<Response> getData({
-    String? token,
-    Map<String, dynamic>? query,
-    required String url,
+    String token,
+    Map<String, dynamic> query,
+    @required String url,
   }) async {
     dio.options.headers = {
       'lang': 'ar',
@@ -66,10 +67,10 @@ class DioServer {
   }
 
   static Future<Response> putData({
-    String? token,
-    required String url,
-    required Map<String, dynamic> data,
-    Map<String, dynamic>? query,
+    String token,
+    @required String url,
+    @required Map<String, dynamic> data,
+    Map<String, dynamic> query,
   }) async {
     dio.options.headers = {
       'lang': 'ar',
@@ -84,10 +85,10 @@ class DioServer {
   }
 
   static Future<Response> getDataProduct({
-    String? token,
-    Map<String, dynamic>? query,
-    required String url,
-    required int limit,
+    String token,
+    Map<String, dynamic> query,
+    @required String url,
+    @required int limit,
   }) async {
     dio.options.headers = {
       'lang': 'ar',
@@ -104,10 +105,10 @@ class DioServer {
   }
 
   static Future<Response> getDataCategory(
-      {String? token,
-      Map<String, dynamic>? query,
-      required String url,
-      required categoryId}) async {
+      {String token,
+      Map<String, dynamic> query,
+      @required String url,
+      @required categoryId}) async {
     dio.options.headers = {
       'lang': 'ar',
       'Content-Type': 'application/json',
@@ -124,9 +125,9 @@ class DioServer {
   }
 
   static Future<Response> getDataSearch({
-    String? token,
-    Map<String, dynamic>? query,
-    required String url,
+    String token,
+    Map<String, dynamic> query,
+    @required String url,
   }) async {
     dio.options.headers = {
       'lang': 'ar',

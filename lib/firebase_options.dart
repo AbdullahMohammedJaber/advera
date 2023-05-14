@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyASaJ46I5EnCfZWJS8RfhF63I1b5yw8POA',
-    appId: '1:154207041233:android:35c133c721424e0850f7f0',
+    appId: '1:154207041233:android:dd2293b14cab027050f7f0',
     messagingSenderId: '154207041233',
     projectId: 'advera-70515',
     storageBucket: 'advera-70515.appspot.com',

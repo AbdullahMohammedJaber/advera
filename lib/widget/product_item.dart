@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemWidget extends StatefulWidget {
-  const ItemWidget({this.index, this.favoriteIcon, Key? key}) : super(key: key);
-  final int? index;
-  final bool? favoriteIcon;
+  const ItemWidget({this.index, this.favoriteIcon, Key key}) : super(key: key);
+  final int index;
+  final bool favoriteIcon;
   @override
   State<ItemWidget> createState() => _ItemWidgetState();
 }
@@ -88,7 +88,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                 ),
               ),
             ),
-            widget.favoriteIcon!
+            widget.favoriteIcon
                 ? Positioned(
                     bottom: -15.0,
                     right: 10.0,

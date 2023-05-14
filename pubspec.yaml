@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.10.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -45,7 +45,7 @@ dependencies:
   flutter_carousel_slider:
   curved_navigation_bar:
   flutter_staggered_animations:
-  flutter_swiper:
+  flutter_swiper: 1.1.5
   awesome_dialog:
   url_launcher: 
   cloud_firestore: 
@@ -54,9 +54,12 @@ dependencies:
   firebase_messaging: 
   flutter_local_notifications:
   animated_custom_dropdown:
+  change_app_package_name:
 dev_dependencies:
   flutter_launcher_icons: "^0.11.0"
-
+dependency_overrides:
+ firebase_messaging_platform_interface: 3.1.6
+ firebase_core_platform_interface: 4.5.1
 flutter_icons:
   android: true
   ios: true

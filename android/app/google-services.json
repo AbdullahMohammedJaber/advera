@@ -7,9 +7,81 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:154207041233:android:dd2293b14cab027050f7f0",
+        "android_client_info": {
+          "package_name": "com.advera.store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154207041233-vh25vvlabnomdbvvtvua3f86840an9su.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASaJ46I5EnCfZWJS8RfhF63I1b5yw8POA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154207041233-vh25vvlabnomdbvvtvua3f86840an9su.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "154207041233-5glfok2v3ul4ls2n9cuj4sl6dbt254og.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.advera"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:154207041233:android:35c133c721424e0850f7f0",
         "android_client_info": {
           "package_name": "com.app.advera"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154207041233-vh25vvlabnomdbvvtvua3f86840an9su.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASaJ46I5EnCfZWJS8RfhF63I1b5yw8POA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154207041233-vh25vvlabnomdbvvtvua3f86840an9su.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "154207041233-5glfok2v3ul4ls2n9cuj4sl6dbt254og.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.advera"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154207041233:android:fd6af90e995d161e50f7f0",
+        "android_client_info": {
+          "package_name": "com.app.adveraadmin"
         }
       },
       "oauth_client": [

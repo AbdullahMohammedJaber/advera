@@ -1,4 +1,4 @@
-package com.app.advera
+package com.advera.store
 
 import io.flutter.embedding.android.FlutterActivity
 
