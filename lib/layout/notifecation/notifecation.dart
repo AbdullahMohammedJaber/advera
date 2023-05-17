@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Notifecation extends StatefulWidget {
-  const Notifecation({Key? key}) : super(key: key);
+  const Notifecation({Key key}) : super(key: key);
 
   @override
   State<Notifecation> createState() => _NotifecationState();

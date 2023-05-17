@@ -6,8 +6,7 @@ import 'package:advera/widget/shimmerEffect.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -16,7 +15,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class ProductDetails extends StatefulWidget {
   final dynamic product;
 
-  const ProductDetails({Key? key, required this.product}) : super(key: key);
+  const ProductDetails({Key key, @required this.product}) : super(key: key);
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -28,12 +27,15 @@ class _ProductDetailsState extends State<ProductDetails> {
     keepPage: true,
   );
   int amount = 1;
+  Future init() async {
+    await LayoutCubit.get(context).getProductCategoryScreen(
+      id_category: widget.product['category']['category_id'],
+    );
+  }
 
   @override
   void initState() {
-    LayoutCubit.get(context).getProductCategoryScreen(
-      id_category: widget.product['category']['category_id'],
-    );
+    init();
     amount = 1;
     super.initState();
   }
@@ -52,6 +54,11 @@ class _ProductDetailsState extends State<ProductDetails> {
         amount--;
       });
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -84,6 +91,10 @@ class _ProductDetailsState extends State<ProductDetails> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: primaryColor,
+            title: Text(
+              widget.product['name'],
+              style: TextStyle(fontSize: 14),
+            ),
           ),
           body: Container(
             width: double.infinity,
@@ -126,22 +137,33 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: Text(
+                                  "${widget.product['name']}",
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "font",
+                                      fontSize: 20,
+                                      overflow: TextOverflow.fade),
+                                  textAlign: TextAlign.end,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
                               Text(
                                 widget.product['category']['name'],
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontFamily: "font",
                                   fontSize: 12,
-                                ),
-                                textAlign: TextAlign.end,
-                              ),
-                              const Spacer(),
-                              Text(
-                                widget.product['name'],
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: "font",
-                                  fontSize: 20,
                                 ),
                                 textAlign: TextAlign.end,
                               ),
@@ -311,17 +333,28 @@ class _ProductDetailsState extends State<ProductDetails> {
           setState(() {
             amount = 0;
           });
-          Navigator.pop(context);
         }
       },
     );
   }
 }
 
-class addFav extends StatelessWidget {
+class addFav extends StatefulWidget {
   final dynamic product;
 
-  const addFav({Key? key, required this.product}) : super(key: key);
+  const addFav({Key key, @required this.product}) : super(key: key);
+
+  @override
+  State<addFav> createState() => _addFavState();
+}
+
+class _addFavState extends State<addFav> {
+  int fav;
+  @override
+  void initState() {
+    fav = widget.product['auth']['is_liked'];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -353,10 +386,16 @@ class addFav extends StatelessWidget {
             btnOkText: "تسجيل الدخول",
           ).show();
         } else {
-          if (product['auth']['is_liked'] == 0) {
-            LayoutCubit.get(context).addFav(id: product['id']);
-          } else if (product['auth']['is_liked'] == 1) {
-            LayoutCubit.get(context).deleteFav(id: product['id']);
+          if (fav == 0) {
+            LayoutCubit.get(context).addFav(id: widget.product['id']);
+            setState(() {
+              fav = 1;
+            });
+          } else if (fav == 1) {
+            LayoutCubit.get(context).deleteFav(id: widget.product['id']);
+            setState(() {
+              fav = 0;
+            });
           }
         }
       },
@@ -368,26 +407,38 @@ class addFav extends StatelessWidget {
         ),
         child: Icon(
           Icons.favorite,
-          color: product['auth']['is_liked'] == 1 ? Colors.red : Colors.grey,
+          color: fav == 1 ? Colors.red : Colors.grey,
         ),
       ),
     );
   }
 }
 
-class addCart extends StatelessWidget {
+class addCart extends StatefulWidget {
   final int productId;
   final int amount;
   final dynamic p;
   final LayoutState state;
 
   const addCart(
-      {Key? key,
-      required this.productId,
-      required this.amount,
-      required this.p,
-      required this.state})
+      {Key key,
+      @required this.productId,
+      @required this.amount,
+      @required this.p,
+      @required this.state})
       : super(key: key);
+
+  @override
+  State<addCart> createState() => _addCartState();
+}
+
+class _addCartState extends State<addCart> {
+  int cart;
+  @override
+  void initState() {
+    cart = cart;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -421,7 +472,7 @@ class addCart extends StatelessWidget {
               btnOkText: "تسجيل الدخول",
             ).show();
           } else {
-            if (p['auth']['is_added_to_cart'] == 1) {
+            if (cart == 1) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   duration: Duration(seconds: 1),
@@ -437,7 +488,11 @@ class addCart extends StatelessWidget {
                 ),
               );
             } else {
-              LayoutCubit.get(context).addCart(id: productId, amount: amount);
+              setState(() {
+                cart = 1;
+              });
+              LayoutCubit.get(context)
+                  .addCart(id: widget.productId, amount: widget.amount);
             }
           }
         },
@@ -449,11 +504,11 @@ class addCart extends StatelessWidget {
             borderRadius: BorderRadius.circular(14),
           ),
           child: Center(
-            child: state is AddCartLoaded
+            child: widget.state is AddCartLoaded
                 ? Center(
                     child: CircularProgressIndicator(color: Colors.white),
                   )
-                : p['auth']['is_added_to_cart'] == 1
+                : cart == 1
                     ? Text(
                         "في السلة",
                         style: TextStyle(
@@ -478,7 +533,7 @@ class addCart extends StatelessWidget {
 }
 
 class _montagatMoshabeha extends StatelessWidget {
-  const _montagatMoshabeha({Key? key}) : super(key: key);
+  const _montagatMoshabeha({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -504,7 +559,7 @@ class _montagatMoshabeha extends StatelessWidget {
 }
 
 class _montagatMoshabehaAll extends StatelessWidget {
-  const _montagatMoshabehaAll({Key? key}) : super(key: key);
+  const _montagatMoshabehaAll({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -794,9 +849,11 @@ Column BuildProuduct(BuildContext context, int index) {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
-            mainAxisAlignment:LayoutCubit.get(context).productCategory[0]['data']['records']
-            ['posts'][index]['discount_price'] ==
-                0? MainAxisAlignment.start :MainAxisAlignment.spaceBetween ,
+            mainAxisAlignment: LayoutCubit.get(context).productCategory[0]
+                        ['data']['records']['posts'][index]['discount_price'] ==
+                    0
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.spaceBetween,
             children: [
               LayoutCubit.get(context).productCategory[0]['data']['records']
                           ['posts'][index]['discount_price'] ==
@@ -819,9 +876,7 @@ Column BuildProuduct(BuildContext context, int index) {
                   color: green,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-
                 ),
-
               ),
             ],
           ),

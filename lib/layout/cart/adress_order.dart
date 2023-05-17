@@ -8,7 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdressOrder extends StatefulWidget {
-  const AdressOrder({Key? key}) : super(key: key);
+  const AdressOrder({Key key}) : super(key: key);
 
   @override
   State<AdressOrder> createState() => _AdressOrderState();
@@ -156,7 +156,7 @@ class _AdressOrderState extends State<AdressOrder> {
                                       }).toList(),
                                       onChanged: (dynamic value) {
                                         setState(() {
-                                          idStrett = value!['id'];
+                                          idStrett = value['id'];
                                         });
                                         print(idStrett);
                                       },
@@ -244,7 +244,7 @@ class _AdressOrderState extends State<AdressOrder> {
                                                         color: primaryColor),
                                               )
                                             : Text(
-                                                "\$ ${LayoutCubit.total}",
+                                                "₪ ${LayoutCubit.total}",
                                                 style: TextStyle(
                                                   fontFamily: "font",
                                                 ),

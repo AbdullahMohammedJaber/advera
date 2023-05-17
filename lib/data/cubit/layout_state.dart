@@ -41,11 +41,7 @@ class AddFavDone extends LayoutState {
 
 class RemoveFavLoaded extends LayoutState {}
 
-class RemoveFavDone extends LayoutState {
-  final bool status;
-
-  RemoveFavDone(this.status);
-}
+class RemoveFavDone extends LayoutState {}
 
 class SearchLoaded extends LayoutState {}
 

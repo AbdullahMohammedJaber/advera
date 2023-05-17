@@ -8,7 +8,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeLayoutScreen extends StatefulWidget {
-  const HomeLayoutScreen({Key? key}) : super(key: key);
+  const HomeLayoutScreen({Key key}) : super(key: key);
 
   @override
   State<HomeLayoutScreen> createState() => _HomeLayoutScreenState();

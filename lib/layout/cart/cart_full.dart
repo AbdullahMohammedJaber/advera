@@ -9,7 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartFull extends StatefulWidget {
-  const CartFull({Key? key}) : super(key: key);
+  const CartFull({Key key}) : super(key: key);
 
   @override
   State<CartFull> createState() => _CartFullState();
@@ -161,16 +161,15 @@ class ItemCart extends StatelessWidget {
   final BuildContext context;
   final LayoutState state;
   const ItemCart(
-      {Key? key,
-      required this.index,
-      required this.context,
-      required this.state})
+      {Key key,
+      @required this.index,
+      @required this.context,
+      @required this.state})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(12),
@@ -203,14 +202,17 @@ class ItemCart extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      "${LayoutCubit.get(context).cartItem[0]['data']['carts']['products'][index]['name']}",
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                        fontFamily: "font",
-                        fontSize: 16,
+                    Container(
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        "${LayoutCubit.get(context).cartItem[0]['data']['carts']['products'][index]['name']}",
+                        overflow: TextOverflow.fade,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          fontFamily: "font",
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ],
@@ -261,6 +263,7 @@ class ItemCart extends StatelessWidget {
               imageUrl: LayoutCubit.get(context).cartItem[0]['data']['carts']
                   ['products'][index]['images'][0],
               height: 120,
+              fit: BoxFit.cover,
               placeholder: (context, name) {
                 return ShimmerEffect(
                   borderRadius: 10.0,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegesterScreen extends StatefulWidget {
-  const RegesterScreen({Key? key}) : super(key: key);
+  const RegesterScreen({Key key}) : super(key: key);
 
   @override
   State<RegesterScreen> createState() => _RegesterScreenState();

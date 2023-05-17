@@ -7,7 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavEmbty extends StatefulWidget {
-  const FavEmbty({Key? key}) : super(key: key);
+  const FavEmbty({Key key}) : super(key: key);
 
   @override
   State<FavEmbty> createState() => _FavEmbtyState();

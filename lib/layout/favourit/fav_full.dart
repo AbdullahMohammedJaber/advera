@@ -14,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavFull extends StatefulWidget {
-  const FavFull({Key? key}) : super(key: key);
+  const FavFull({Key key}) : super(key: key);
 
   @override
   State<FavFull> createState() => _FavFullState();
@@ -28,7 +28,7 @@ class _FavFullState extends State<FavFull> {
         return Container(
           width: double.infinity,
           height: double.infinity,
-          child: state is GetFavLoaded?
+          child: state is GetFavLoaded
               ? ShimmerEffect(
                   borderRadius: 10.0.r,
                   height: 88.h,
@@ -72,9 +72,10 @@ class _FavFullState extends State<FavFull> {
                 ),
         );
       },
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is RemoveFavDone) {
-          LayoutCubit.get(context).getListFav();
+          await LayoutCubit.get(context).getListFav();
+          setState(() {});
         }
       },
     );
@@ -98,7 +99,7 @@ class _FavFullState extends State<FavFull> {
                 child: CachedNetworkImage(
                   imageUrl: LayoutCubit.get(context).favItem[0]['data']
                       ['products'][index]['images'][0],
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   placeholder: (context, name) {
                     return ShimmerEffect(
                         borderRadius: 10.0,
@@ -149,6 +150,7 @@ class _FavFullState extends State<FavFull> {
                   LayoutCubit.get(context).deleteFav(
                       id: LayoutCubit.get(context).favItem[0]['data']
                           ['products'][index]['id']);
+                  setState(() {});
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 10.0),
@@ -211,9 +213,17 @@ class _FavFullState extends State<FavFull> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(
-                "${LayoutCubit.get(context).favItem[0]['data']['products'][index]['name']}",
-                style: const TextStyle(color: Colors.black, fontSize: 16),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: Text(
+                  "${LayoutCubit.get(context).favItem[0]['data']['products'][index]['name']}",
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    overflow: TextOverflow.fade,
+                  ),
+                  maxLines: 3,
+                ),
               )
             ],
           ),

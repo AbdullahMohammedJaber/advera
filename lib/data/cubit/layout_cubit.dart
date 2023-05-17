@@ -194,10 +194,10 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   List<Map<String, dynamic>> productCategory = [];
 
-  void getProductCategoryScreen({required int id_category}) {
+  Future getProductCategoryScreen({@required int id_category}) async {
     emit(GetProductCategoryLoaded());
     productCategory = [];
-    DioServer.getDataCategory(
+    await DioServer.getDataCategory(
       url: "/products",
       token: token,
       categoryId: id_category,
@@ -214,20 +214,23 @@ class LayoutCubit extends Cubit<LayoutState> {
   // void get list item favoraites
   List<Map<String, dynamic>> favItem = [];
 
-  void getListFav() {
-    emit(GetFavLoaded());
+  Future getListFav() async {
     favItem = [];
+    emit(GetFavLoaded());
+
     ("Favv--------------------------------------");
     (token);
-    DioServer.getData(url: '/productsWishlist', token: token).then((value) {
+    await DioServer.getData(url: '/productsWishlist', token: token)
+        .then((value) {
       ("The Favoraite List is :");
       favItem.add(value.data);
       (value.data);
+    }).whenComplete(() {
       emit(GetFavDone());
     });
   }
 
-  void addFav({required int id}) {
+  void addFav({@required int id}) {
     emit(AddFavLoaded());
 
     DioServer.getData(
@@ -243,27 +246,27 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  void deleteFav({required int id}) {
+  Future deleteFav({@required int id}) async {
     emit(RemoveFavLoaded());
 
-    DioServer.getData(
+    await DioServer.getData(
       url: '/products/wishlist/remove',
       query: {
         'product_id': id,
       },
       token: token,
-    ).then((value) {
-      // getListFav();
-      getProductHomeScreen();
-
-      emit(RemoveFavDone(value.data['status']));
+    ).then((value) async {
+      await getListFav();
+      await getProductHomeScreen();
+    }).whenComplete(() {
+      emit(RemoveFavDone());
     });
   }
 
   List<Map<String, dynamic>> searchData = [];
 
   void searchProduct({
-    required String nameProduct,
+    @required String nameProduct,
   }) {
     emit(SearchLoaded());
     searchData = [];
@@ -284,11 +287,11 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   List<Map<String, dynamic>> cartItem = [];
 
-  void getListCart() {
+  Future getListCart() async {
     emit(GetCartLoaded());
     cartItem = [];
 
-    DioServer.getData(url: '/carts', token: token).then((value) {
+    await DioServer.getData(url: '/carts', token: token).then((value) {
       cartItem.add(value.data);
 
       emit(GetCartDone());
@@ -305,13 +308,13 @@ class LayoutCubit extends Cubit<LayoutState> {
     emit(ChangePriseDone());
   }
 
-  late int indexCart;
+  int indexCart;
 
   void getIndexCart() async {
     indexCart = await CacheHelper.getData(key: 'indexCart') ?? 1;
   }
 
-  void addCart({required int id, required int amount}) {
+  void addCart({@required int id, @required int amount}) {
     emit(AddCartLoaded());
     getIndexCart();
     (indexCart);
@@ -355,11 +358,11 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   void sendMessageSupport({
-    required String receiverId,
-    required String dateTime,
-    required String text,
-    required String name,
-    required BuildContext context,
+    @required String receiverId,
+    @required String dateTime,
+    @required String text,
+    @required String name,
+    @required BuildContext context,
   }) {
     var dateString = DateTime.now();
     var id = Uuid().v4();
@@ -423,7 +426,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<Map<String, dynamic>> messagesSupport = [];
 
   void getMessagesSupport({
-    required String receiverId,
+    @required String receiverId,
   }) {
     emit(GetMessageLoaded());
     messagesSupport = [];
@@ -447,7 +450,7 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   List<Map<String, dynamic>> subCategoryList = [];
 
-  Future getSubCategory({required int categoryId}) async {
+  Future getSubCategory({@required int categoryId}) async {
     emit(GetSubCategoryLoaded());
     subCategoryList = [];
     await DioServer.getData(url: '/subCategories', query: {
@@ -478,10 +481,10 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   void addAdressUser({
-    required String nameStreet,
-    required int building_number,
-    required int floor_number,
-    required int flat_number,
+    @required String nameStreet,
+    @required int building_number,
+    @required int floor_number,
+    @required int flat_number,
   }) {
     emit(AddAdressLoaded());
     DioServer.postData(
@@ -501,7 +504,7 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  void deleteItem({required int id}) {
+  void deleteItem({@required int id}) {
     emit(DeleteItemLoaded());
     DioServer.deleteData(
       url: "https://store.advera.ps/api/carts/$id",
@@ -527,7 +530,7 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  void validateCopon({required dynamic copon}) {
+  void validateCopon({@required dynamic copon}) {
     emit(ValedateCoponLoaded());
     DioServer.getData(
       url: '/coupon/valid',

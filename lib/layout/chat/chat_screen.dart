@@ -16,7 +16,7 @@ class MessageScreenSupport extends StatefulWidget {
   final String nameMoqadem;
 
   const MessageScreenSupport(
-      {Key? key, required this.idMoqadem, required this.nameMoqadem})
+      {Key key, @required this.idMoqadem, @required this.nameMoqadem})
       : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class MessageScreenSupport extends StatefulWidget {
 class _MessageScreenSupportState extends State<MessageScreenSupport> {
   var messageController = TextEditingController();
   bool x = true;
-  File? file;
+  File file;
 
   @override
   void initState() {

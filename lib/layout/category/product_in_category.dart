@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductCategory extends StatefulWidget {
-  const ProductCategory({Key? key}) : super(key: key);
+  const ProductCategory({Key key}) : super(key: key);
 
   @override
   State<ProductCategory> createState() => _ProductCategoryState();

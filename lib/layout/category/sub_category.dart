@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SubCategory extends StatefulWidget {
   final dynamic category_id;
 
-  const SubCategory({Key? key, required this.category_id}) : super(key: key);
+  const SubCategory({Key key, @required this.category_id}) : super(key: key);
 
   @override
   State<SubCategory> createState() => _SubCategoryState();

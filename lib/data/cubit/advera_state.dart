@@ -10,7 +10,7 @@ class ChangeModePassword extends AdveraState {}
 class LoginSuccessfully extends AdveraState {
   final bool status;
 
-  LoginSuccessfully({required this.status});
+  LoginSuccessfully({@required this.status});
 }
 
 class LoginFaild extends AdveraState {}
@@ -24,7 +24,7 @@ class RegesterUserLoaded extends AdveraState {}
 class ReqesterAccountFound extends AdveraState {
   final String msg;
 
-  ReqesterAccountFound({required this.msg});
+  ReqesterAccountFound({@required this.msg});
 }
 
 class RegesterUserSuccessfully extends AdveraState {}

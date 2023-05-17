@@ -8,7 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavScreen extends StatefulWidget {
-  const FavScreen({Key? key}) : super(key: key);
+  const FavScreen({Key key}) : super(key: key);
 
   @override
   State<FavScreen> createState() => _FavScreenState();

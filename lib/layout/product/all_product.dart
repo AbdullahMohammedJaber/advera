@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AllProduct extends StatefulWidget {
-  const AllProduct({Key? key}) : super(key: key);
+  const AllProduct({Key key}) : super(key: key);
 
   @override
   State<AllProduct> createState() => _AllProductState();
@@ -168,37 +168,20 @@ class _AllProductState extends State<AllProduct> {
             );
           }
         } else if (state is RemoveFavDone) {
-          if (state.status == true) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                duration: Duration(seconds: 1),
-                backgroundColor: Colors.green,
-                content: Text(
-                  "تم الحذف من المفضلة",
-                  style: TextStyle(
-                    fontFamily: "font",
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.end,
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 1),
+              backgroundColor: Colors.green,
+              content: Text(
+                "تم الحذف من المفضلة",
+                style: TextStyle(
+                  fontFamily: "font",
+                  color: Colors.white,
                 ),
+                textAlign: TextAlign.end,
               ),
-            );
-          } else if (state.status == false) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                duration: Duration(seconds: 1),
-                backgroundColor: Colors.red,
-                content: Text(
-                  "لم يتم حذفه من المفضلة",
-                  style: TextStyle(
-                    fontFamily: "font",
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            );
-          }
+            ),
+          );
         }
       },
     );

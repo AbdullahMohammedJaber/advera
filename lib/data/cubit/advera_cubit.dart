@@ -22,7 +22,7 @@ class AdveraCubit extends Cubit<AdveraState> {
   // function login user
 
   List<Map<String, dynamic>> userData = [];
-  void loginUserAccount({required var user, required String password}) {
+  void loginUserAccount({@required var user, @required String password}) {
     emit(LoginLoaded());
     DioServer.postData(url: "/users/login", data: {
       "emailOrPhone": user.toString().trim(),
@@ -59,10 +59,10 @@ class AdveraCubit extends Cubit<AdveraState> {
 
   // function regester user
   void regesterUserAccount({
-    required String name,
-    required String phone,
-    required String password,
-    required String email,
+    @required String name,
+    @required String phone,
+    @required String password,
+    @required String email,
   }) {
     String zip = "  ";
     emit(RegesterUserLoaded());
@@ -94,7 +94,7 @@ class AdveraCubit extends Cubit<AdveraState> {
 
 // function get profile user
   List<Map<String, dynamic>> user = [];
-  void getUserProfile({required String token}) {
+  void getUserProfile({@required String token}) {
     emit(GetProfileUserLoaded());
     user = [];
     DioServer.postData(

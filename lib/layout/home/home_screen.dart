@@ -28,7 +28,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -39,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -397,9 +396,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .productHomeOffer
                                         .length,
                                     autoplay: true,
+                                    loop: true,
+                                    index: 0,
                                     viewportFraction: 0.4 + 0.05,
                                     scale: 0.7,
-                                    scrollDirection: Axis.horizontal,
+                                    duration: 10,
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
@@ -486,13 +487,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       return InkWell(
                                         onTap: () {
                                           Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) => ProductDetails(
-                                                      product: LayoutCubit.get(
-                                                                  context)
-                                                              .productHomeNotOffer[
-                                                          index])));
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => ProductDetails(
+                                                product: LayoutCubit.get(
+                                                        context)
+                                                    .productHomeNotOffer[index],
+                                              ),
+                                            ),
+                                          );
                                         },
                                         child: Container(
                                           width: 155.w,
@@ -1051,10 +1054,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               "${LayoutCubit.get(context).productHomeOffer[index]['name']}",
               style: TextStyle(
-                fontFamily: "font",
-                color: Colors.black,
-                fontSize: 16,
-              ),
+                  fontFamily: "font",
+                  color: Colors.black,
+                  fontSize: 16,
+                  overflow: TextOverflow.fade),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               textAlign: TextAlign.end,
@@ -1097,8 +1100,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
-
-
 
   Widget makeSlider() {
     return CarouselSlider.builder(

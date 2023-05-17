@@ -6,7 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartEmpty extends StatefulWidget {
-  const CartEmpty({Key? key}) : super(key: key);
+  const CartEmpty({Key key}) : super(key: key);
 
   @override
   State<CartEmpty> createState() => _CartEmptyState();
