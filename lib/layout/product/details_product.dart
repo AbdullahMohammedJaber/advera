@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -573,12 +573,14 @@ class _montagatMoshabehaAll extends StatelessWidget {
               height: 80.h,
               width: 343.w,
             )
-          : Swiper(
-              itemCount: 6,
-              autoplay: true,
-              viewportFraction: 0.4 + 0.05,
-              scale: 0.7,
+          : ListView.separated(
+              separatorBuilder: (context, index) {
+                return SizedBox(
+                  width: 10,
+                );
+              },
               scrollDirection: Axis.horizontal,
+              itemCount: 6,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {

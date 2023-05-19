@@ -23,7 +23,7 @@ import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -391,16 +391,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 80.h,
                                     width: 343.w,
                                   )
-                                : Swiper(
+                                : ListView.separated(
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        width: 10,
+                                      );
+                                    },
+                                    scrollDirection: Axis.horizontal,
                                     itemCount: LayoutCubit.get(context)
                                         .productHomeOffer
                                         .length,
-                                    autoplay: true,
-                                    loop: true,
-                                    index: 0,
-                                    viewportFraction: 0.4 + 0.05,
-                                    scale: 0.7,
-                                    duration: 10,
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
@@ -414,7 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           index])));
                                         },
                                         child: Container(
-                                          width: 155.w,
+                                          width: 160.w,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
@@ -475,14 +475,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 80.h,
                                     width: 343.w,
                                   )
-                                : Swiper(
+                                : ListView.separated(
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        width: 10,
+                                      );
+                                    },
+                                    scrollDirection: Axis.horizontal,
                                     itemCount: LayoutCubit.get(context)
                                         .productHomeNotOffer
                                         .length,
-                                    autoplay: true,
-                                    viewportFraction: 0.4 + 0.05,
-                                    scale: 0.7,
-                                    scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
@@ -498,7 +500,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           );
                                         },
                                         child: Container(
-                                          width: 155.w,
+                                          width: 160.w,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),

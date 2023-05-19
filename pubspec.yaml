@@ -45,7 +45,7 @@ dependencies:
   flutter_carousel_slider:
   curved_navigation_bar:
   flutter_staggered_animations:
-  flutter_swiper: 1.1.5
+   
   awesome_dialog:
   url_launcher: 
   cloud_firestore: 
