@@ -76,7 +76,6 @@ class _AllProductState extends State<AllProduct> {
                 : Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GridView.builder(
-                      reverse: reverse,
                       controller: scrollController,
                       shrinkWrap: true,
                       itemCount: LayoutCubit.isLoading

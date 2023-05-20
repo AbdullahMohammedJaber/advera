@@ -1,11 +1,10 @@
 import 'package:advera/auth/login_screen.dart';
 import 'package:advera/controller/color.dart';
-import 'package:advera/controller/token.dart';
-import 'package:advera/data/cubit/advera_cubit.dart';
+
 import 'package:advera/data/cubit/layout_cubit.dart';
-import 'package:advera/helper/shared_refrence.dart';
+
 import 'package:advera/layout/category/all_category.dart';
-import 'package:advera/layout/category/product_in_category.dart';
+
 import 'package:advera/layout/category/sub_category.dart';
 import 'package:advera/layout/notifecation/notifecation.dart';
 import 'package:advera/layout/product/all_product.dart';
@@ -20,11 +19,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
-import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
-import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -71,12 +68,40 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const Notifecation(),
-                    ),
-                  );
+                  if (LayoutCubit.token == 'null' || LayoutCubit.token == '') {
+                    AwesomeDialog(
+                      context: context,
+                      animType: AnimType.scale,
+                      dialogType: DialogType.warning,
+                      body: const Center(
+                        child: Text(
+                          "لم يتم تسجيل الدخول ",
+                          style: TextStyle(
+                            fontFamily: 'font',
+                            fontSize: 20,
+                          ),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                      title: 'This is Ignored',
+                      btnOkOnPress: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const LoginScreen()),
+                            (route) => false);
+                      },
+                      btnOkColor: swichColor,
+                      btnOkText: "تسجيل الدخول",
+                    ).show();
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const Notifecation(),
+                      ),
+                    );
+                  }
                 },
                 icon: Icon(Icons.notification_important_rounded),
               ),
