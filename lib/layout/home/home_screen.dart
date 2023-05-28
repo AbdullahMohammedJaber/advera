@@ -68,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               IconButton(
                 onPressed: () {
-                  if (LayoutCubit.token == 'null' || LayoutCubit.token == '') {
+                  if (LayoutCubit.token == 'null' ||
+                      LayoutCubit.token == '' ||
+                      LayoutCubit.token == null) {
                     AwesomeDialog(
                       context: context,
                       animType: AnimType.scale,

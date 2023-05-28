@@ -115,7 +115,7 @@ class DioServer {
       'token': token,
       'active': 0,
       'limit': 70,
-      'category_id': categoryId,
+      'sub_category_id': categoryId,
     };
 
     return await dio.get(

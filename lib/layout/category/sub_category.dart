@@ -83,8 +83,9 @@ Widget BuildCategory(BuildContext context, int index) {
   return InkWell(
     onTap: () {
       LayoutCubit.get(context).getProductCategoryScreen(
-          id_category: LayoutCubit.get(context).subCategoryList[0]['data']
-              ['SubCategories'][index]['category_id']);
+        id_category: LayoutCubit.get(context).subCategoryList[0]['data']
+            ['SubCategories'][index]['id'],
+      );
       // print(LayoutCubit.get(context).category[0]['data']['SubCategories'][index]
       //     ['id']);
       Navigator.push(
